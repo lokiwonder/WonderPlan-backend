@@ -1,0 +1,97 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@asset": [
+        "./src/_commons/assets"
+      ],
+      "@asset/*": [
+        "./src/_commons/assets/*"
+      ],
+      "@common": [
+        "./src/_commons"
+      ],
+      "@common/*": [
+        "./src/_commons/*"
+      ],
+      "@class": [
+        "./src/_commons/classes"
+      ],
+      "@class/*": [
+        "./src/_commons/classes/*"
+      ],
+      "@constant": [
+        "./src/_commons/contants"
+      ],
+      "@constant/*": [
+        "./src/_commons/contants/*"
+      ],
+      "@enum": [
+        "./src/_commons/enums"
+      ],
+      "@enum/*": [
+        "./src/_commons/enums/*"
+      ],
+      "@function": [
+        "./src/_commons/functions"
+      ],
+      "@function/*": [
+        "./src/_commons/functions/*"
+      ],
+      "@interface": [
+        "./src/_commons/interface"
+      ],
+      "@interface/*": [
+        "./src/_commons/interface/*"
+      ],
+      "@schema": [
+        "./src/_commons/schemas"
+      ],
+      "@schema/*": [
+        "./src/_commons/schemas/*"
+      ],
+      "@type": [
+        "./src/_commons/types"
+      ],
+      "@type/*": [
+        "./src/_commons/types/*"
+      ],
+      "@config": [
+        "./src/_configs"
+      ],
+      "@config/*": [
+        "./src/_configs/*"
+      ],
+      "@admin": [
+        "./src/admin/*"
+      ],
+      "@admin/*": [
+        "./src/admin/*"
+      ],
+      "@auth": [
+        "./src/auth/*"
+      ],
+      "@auth/*": [
+        "./src/auth/*"
+      ],
+      "@connectivity": [
+        "./src/connectivity/*"
+      ],
+      "@connectivity/*": [
+        "./src/connectivity/*"
+      ],
+      "@electrified": [
+        "./src/electrified"
+      ],
+      "@electrified/*": [
+        "./src/electrified/*"
+      ],
+      "@powertrain": [
+        "./src/powertrain"
+      ],
+      "@powertrain/*": [
+        "./src/powertrain/*"
+      ],
+    }
+  }
+}
