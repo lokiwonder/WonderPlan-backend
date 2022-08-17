@@ -1,3 +1,1 @@
-export const MONGODB_USERNAME = 'mongo';
-export const MONGODB_PASSWORD = 'mongo';
-export const MONGODB_URL = `mongodb://localhost:27017`;
+export const MONGODB_URL = `mongodb://20.196.129.128:4717`;
