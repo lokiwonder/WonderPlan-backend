@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CompanyRepository } from './company.repository';
+import { CompanyRepository } from 'src/data-access/company-repository';
 import { CreateCompanyDTO } from './dto';
 
 @Injectable()
@@ -23,7 +23,7 @@ export class CompanyService {
         companyOpeningDate,
         representativeName,
       };
-      return this.companyRepository.createCompany(company);
+      // return this.companyRepository.createCompany(company);
     } else {
       throw new BadRequestException(
         `already inserted company with businessRegistrationNumber ${businessRegistrationNumber}`,

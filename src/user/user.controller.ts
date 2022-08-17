@@ -31,6 +31,7 @@ export class UserController {
   }
 
   // todo: 반환타입 작성하기 //
+  // arg: userEmail //
   @Get(`${READ_USER_API}/:userEmail`)
   @UsePipes(ValidationPipe)
   readUser(@Param('userEmail') readUserDto: ReadUserDTO) {

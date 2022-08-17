@@ -7,6 +7,11 @@ export default class CreateCompanyDTO {
   @IsString()
   businessRegistrationNumber: string;
 
+  // description: 회사명 //
+  @IsNotEmpty()
+  @IsString()
+  companyName: string;
+
   // description: 개업일 //
   @IsNotEmpty()
   @IsString()
@@ -17,4 +22,9 @@ export default class CreateCompanyDTO {
   @IsNotEmpty()
   @IsString()
   representativeName: string;
+
+  // description: 회사 주소 //
+  @IsNotEmpty()
+  @IsString()
+  companyAddress: string;
 }

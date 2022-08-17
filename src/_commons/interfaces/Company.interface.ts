@@ -6,9 +6,9 @@ export interface ICompany {
 
   companyName: string;
 
-  representativeEmail: string;
+  representativeName: string;
 
-  companyOpeningData: string;
+  companyOpeningDate: string;
 
   companyAddress: string;
 

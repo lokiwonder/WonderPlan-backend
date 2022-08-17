@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthRepository } from './auth.repository';
+import { AuthRepository } from './auth-repository';
 
 describe('AuthRepository', () => {
   let provider: AuthRepository;

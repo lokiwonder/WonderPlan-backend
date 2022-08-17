@@ -1,8 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { ICommutingTime } from '../interfaces/CommutingTime.interface';
-import { ICompany } from '../interfaces/Company.interface';
-import { IGeo } from '../interfaces/geo.interface';
+import { ICommutingTime, ICompany, IGeo } from 'src/_commons/interfaces';
 
 export type CompanyDocument = Company & Document;
 
@@ -16,18 +14,18 @@ export class Company implements ICompany {
   companyName: string;
 
   @Prop()
-  representativeEmail: string;
+  representativeName: string;
 
   @Prop()
-  companyOpeningData: string;
+  companyOpeningDate: string;
 
   @Prop()
   companyAddress: string;
 
-  @Prop()
+  @Prop({ type: Object })
   companyLocation: IGeo;
 
-  @Prop()
+  @Prop({ type: Object })
   commutingTime: ICommutingTime;
 }
 

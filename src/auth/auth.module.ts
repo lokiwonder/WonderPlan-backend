@@ -4,6 +4,8 @@ import { AuthService } from './auth.service';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { JWT_SECRET, JWT_SIGN_OPTOINS, PASSPORT_STRATEGY } from './constant';
 import { PassportModule } from '@nestjs/passport';
+import { AuthRepository } from 'src/data-access/auth-repository';
+import { DataAccessModule } from 'src/data-access/data-access.module';
 
 @Module({
   imports: [
@@ -12,9 +14,10 @@ import { PassportModule } from '@nestjs/passport';
       secret: JWT_SECRET,
       signOptions: JWT_SIGN_OPTOINS,
     }),
+    DataAccessModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtService],
-  exports: [AuthService],
+  providers: [AuthService, AuthRepository, JwtService],
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}
