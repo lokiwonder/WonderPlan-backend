@@ -31,12 +31,14 @@ export class UserController {
   }
 
   // function : userEmail로 유저 조회 //
-  // arg: userEmail //
+  // arg: ReadUserDTO(userEmail) //
   // return : user //
   // todo: 반환타입 작성하기 //
   @Get(`${READ_USER_API}/:userEmail`)
-  @UsePipes(ValidationPipe)
-  readUser(@Param('userEmail') readUserDto: ReadUserDTO) {
-    return this.userService.readUser(readUserDto.userEmail);
+  // @UsePipes(ValidationPipe)
+  // readUser(@Param('userEmail') readUserDto: ReadUserDTO) {
+  readUser(@Param('userEmail') userEmail: string) {
+    console.log(userEmail);
+    return this.userService.readUser(userEmail);
   }
 }

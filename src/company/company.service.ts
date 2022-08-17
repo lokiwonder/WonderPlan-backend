@@ -1,12 +1,16 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CompanyRepository } from 'src/data-access/company-repository';
+import { Company } from 'src/data-access/schemas';
 import { CreateCompanyDTO } from './dto';
 
 @Injectable()
 export class CompanyService {
   constructor(private companyRepository: CompanyRepository) {}
 
-  // todo: 반환타입: interface 작성하기 //
+  // function : 회사 정보 생성 및 삽입 //
+  // arg      : CreateCompanyDTO //
+  // return   : Company //
+  // todo : 로직 작성 및 반환타입 작성 필요 //
   createCompany(dto: CreateCompanyDTO) {
     const {
       businessRegistrationNumber,
