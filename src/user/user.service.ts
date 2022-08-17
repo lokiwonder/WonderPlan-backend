@@ -1,28 +1,37 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { UserRepository } from './user.repository';
+import CreateUserDTO from './dto/Create-User.dto';
+import { JwtService } from '@nestjs/jwt';
+import { AuthService } from 'src/auth/auth.service';
+import { UserRepository } from 'src/data-access/user.repository';
 
+// description : 사용자 기능을 제공하는 Service //
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(
+    private authService: AuthService, // private userRepository: UserRepository,
+  ) {}
 
-  // todo: DTO로 받아온 유저데이터를 통해 유저 생성 //
-  createUser() {
-    const { userEmail } = dto;
-    const user: User = this.readUser(userEmail);
-    if(user === undefined || user === null) {
-        // 해당 email로 가입된 유저 없으므로 가입 진행
-    } else {
-        // 이미 존재하는 유저이므로 throw new BadRequestException
-        throw new BadRequestException(`already exist user with email ${userEmail}`); 
-    }
-    const { userEmail, userName, userProfile, userBirth, userPhone } = //dto//
-
+  // todo: 반환타입 작성하기 //
+  // arg: userEmail, userName, userProfile, userBirth, userTel, companyNumber?: string = null //
+  // return:  //
+  // description: 사용자 이메일로 가입여부를 체크한 후  //
+  async createUser(createUserDto: CreateUserDTO) {
+    const { userEmail } = createUserDto;
+    // const readedUser = this.userRepository.readUser(userEmail);
+    // if (readedUser !== undefined && readedUser !== null)
+    //   throw new BadRequestException();
+    // // 해당 email로 가입된 유저 없으므로 가입 진행
+    // const createdUser = await this.userRepository.createUser(createUserDto);
+    // const accessToken = this.authService.createAccessToken(createdUser);
+    // console.log(createdUser);
+    // console.log(accessToken);
+    // 이미 존재하는 유저이므로 throw new BadRequestException
   }
 
-  // todo: repository를 통해 email 로 userData 받아오기 //
+  // todo: 반환타입 작성하기 //
   // arg: email: string //
   // return : userData: ? //
-  readUser(email: string) {
-    return this.readUser(email);
+  readUser(userEmail: string) {
+    return this.readUser(userEmail);
   }
 }
