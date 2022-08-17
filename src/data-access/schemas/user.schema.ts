@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 export type UserDocument = User & Document;
 
-// class: 회원 정보  Schema Class //
+// class: 회원 정보 Collection Class //
 @Schema()
 export class User {
   @Prop()
@@ -28,5 +28,5 @@ export class User {
   userType: string;
 }
 
-// schema: 유저 스키마 //
+// schema: User 스키마 //
 export const UserSchema = SchemaFactory.createForClass(User);

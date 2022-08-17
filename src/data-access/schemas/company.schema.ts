@@ -4,7 +4,7 @@ import { ICommutingTime, ICompany, IGeo } from 'src/_commons/interfaces';
 
 export type CompanyDocument = Company & Document;
 
-// class: 회사 정보 Schema Class //
+// class: 회사 정보 Collection Class //
 @Schema()
 export class Company implements ICompany {
   @Prop()
@@ -29,5 +29,5 @@ export class Company implements ICompany {
   commutingTime: ICommutingTime;
 }
 
-// schema: 회사 스키마 //
+// schema: Company 스키마 //
 export const CompanySchema = SchemaFactory.createForClass(Company);
