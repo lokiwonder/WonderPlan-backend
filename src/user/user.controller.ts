@@ -20,18 +20,20 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  // todo: 반환타입 작성하기 //
+  // function: 사용자 정보를 Body로 받아 새로운 유저를 생성 //
   // arg: userEmail, userName, userProfile, userBirth, userTel, companyNumber?: string = null //
   // return : userData + accessToken //
-  // description: 사용자 정보를 Body로 받아 새로운 유저를 생성 //
+  // todo: 반환타입 작성하기 //
   @Post(CREATE_USER_API)
   @UsePipes(ValidationPipe)
   createUser(@Body() createUserDto: CreateUserDTO) {
     return this.userService.createUser(createUserDto);
   }
 
-  // todo: 반환타입 작성하기 //
+  // function : userEmail로 유저 조회 //
   // arg: userEmail //
+  // return : user //
+  // todo: 반환타입 작성하기 //
   @Get(`${READ_USER_API}/:userEmail`)
   @UsePipes(ValidationPipe)
   readUser(@Param('userEmail') readUserDto: ReadUserDTO) {
