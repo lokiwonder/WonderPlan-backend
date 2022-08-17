@@ -1,5 +1,5 @@
 import { ICommutingTime } from './CommutingTime.interface';
-import { IGeo } from './geo.interface';
+import { IGeo } from './Geo.interface';
 
 export interface ICompany {
   businessRegistrationNumber: string;
