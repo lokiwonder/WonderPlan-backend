@@ -23,6 +23,7 @@ export class AuthController {
   @Post(GOOGLE_LOGIN_API)
   @UsePipes(ValidationPipe)
   async googleLogin(@Body() dto: GoogleLoginDTO): Promise<GoogleLoginRes> {
+    console.log(dto);
     const googleLoginRes = await this.authService.googleLogin(dto);
     return googleLoginRes;
   }

@@ -48,7 +48,7 @@ export class UserController {
   // description : 회사로 가입 요청을 보냄 //
   @Post(REQUEST_JOIN_COMPANY_API)
   @UsePipes(ValidationPipe)
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard())
   async requestJoinCompany(
     @Body() dto: RequestJoinCompanyDTO,
     @getUser() user: User,

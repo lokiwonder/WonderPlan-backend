@@ -1,27 +1,29 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { JwtService } from '@nestjs/jwt';
 import { DataAccessModule } from 'src/data-access/data-access.module';
-import { JwtStrategy } from './jwt.strategy';
-import { ConfigService } from '@nestjs/config';
-import * as dotenv from 'dotenv';
 import { CompanyRepository } from 'src/data-access/company-repository';
 import { UserRepository } from 'src/data-access/user.repository';
-
-dotenv.config();
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtStrategy } from './jwt.strategy';
+import {
+  JWT_SECRET,
+  JWT_SIGN_OPTOINS,
+  PASSPORT_DEFAULT_STRATEGY,
+} from 'src/_commons/constants';
 
 @Module({
-  imports: [DataAccessModule],
-  controllers: [AuthController],
-  providers: [
-    AuthService,
-    UserRepository,
-    CompanyRepository,
-    JwtService,
-    JwtStrategy,
-    ConfigService,
+  imports: [
+    DataAccessModule,
+    PassportModule.register({ defaultStrategy: PASSPORT_DEFAULT_STRATEGY }),
+    JwtModule.register({
+      secret: JWT_SECRET,
+      signOptions: JWT_SIGN_OPTOINS,
+    }),
   ],
-  exports: [AuthService, JwtService, JwtStrategy],
+  controllers: [AuthController],
+  providers: [AuthService, JwtStrategy, UserRepository, CompanyRepository],
+  exports: [JwtStrategy, JwtModule, PassportModule],
 })
 export class AuthModule {}

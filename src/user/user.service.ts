@@ -12,7 +12,7 @@ import { RequestJoinCompanyDTO } from './dto/Request-Join-Company.dto';
 export class UserService {
   constructor(
     private authService: AuthService,
-    private userRepository: UserRepository, // private userRepository: UserRepository,
+    private userRepository: UserRepository,
   ) {}
 
   // todo: 반환타입 작성하기 //
@@ -63,7 +63,7 @@ export class UserService {
     // description : 사용자 정보 중 사업자등록번호를 변경하기 위한 비구조화 //
     const { userEmail } = user;
     const { companyNumber } = dto;
-    // description : userEmail, companyNumber를 이용하여 사업자등록번호 수정 //
+    // description : userEmail, companyNumber를 이용하여 사업자등록번호 //
     await this.userRepository.updateBusinessRegistrationNumber(
       userEmail,
       companyNumber,
