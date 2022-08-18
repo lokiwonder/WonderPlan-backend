@@ -8,7 +8,6 @@ import { IWorkingStatus } from 'src/_commons/interfaces';
 import { User } from 'src/data-access/schemas/user.schema';
 
 import { GoogleLoginDTO } from './dto';
-import { JWT_SECRET } from 'src/_commons/constants';
 import { UserRepository } from 'src/data-access/user.repository';
 
 @Injectable()

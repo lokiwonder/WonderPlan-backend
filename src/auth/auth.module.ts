@@ -5,7 +5,7 @@ import { DataAccessModule } from 'src/data-access/data-access.module';
 import { CompanyRepository } from 'src/data-access/company-repository';
 import { UserRepository } from 'src/data-access/user.repository';
 import { PassportModule } from '@nestjs/passport';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import {
   JWT_SECRET,

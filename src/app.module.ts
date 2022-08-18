@@ -6,14 +6,7 @@ import { UserModule } from './user/user.module';
 import { CompanyModule } from './company/company.module';
 import { DataAccessModule } from './data-access/data-access.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
-import {
-  JWT_SECRET,
-  JWT_SIGN_OPTOINS,
-  MONGODB_URL,
-  PASSPORT_DEFAULT_STRATEGY,
-} from './_commons/constants';
+import { MONGODB_URL } from './_commons/constants';
 
 @Module({
   imports: [
