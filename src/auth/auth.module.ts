@@ -9,28 +9,21 @@ import { DataAccessModule } from 'src/data-access/data-access.module';
 import { JwtStrategy } from './jwt.strategy';
 import { ConfigService } from '@nestjs/config';
 import * as dotenv from 'dotenv';
+import { CompanyRepository } from 'src/data-access/company-repository';
 
 dotenv.config();
 
 @Module({
-  imports: [
-    PassportModule.register(PASSPORT_STRATEGY),
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: JWT_SIGN_OPTOINS,
-      secretOrPrivateKey: process.env.JWT_SECRET,
-    }),
-    DataAccessModule,
-    ConfigService,
-  ],
+  imports: [DataAccessModule],
   controllers: [AuthController],
   providers: [
     AuthService,
     AuthRepository,
+    CompanyRepository,
     JwtService,
     JwtStrategy,
     ConfigService,
   ],
-  exports: [AuthService, JwtModule, PassportModule],
+  exports: [AuthService, JwtService],
 })
 export class AuthModule {}

@@ -8,6 +8,13 @@ import { DataAccessModule } from './data-access/data-access.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MONGODB_URL } from './_commons/constants';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+import {
+  JWT_SECRET,
+  JWT_SIGN_OPTOINS,
+  PASSPORT_STRATEGY,
+} from './auth/constant';
 
 @Module({
   imports: [
@@ -16,10 +23,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     CompanyModule,
     DataAccessModule,
     MongooseModule.forRoot(MONGODB_URL),
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: '.env.development',
+    PassportModule.register(PASSPORT_STRATEGY),
+    JwtModule.register({
+      secret: JWT_SECRET,
+      signOptions: JWT_SIGN_OPTOINS,
     }),
+    DataAccessModule,
     ConfigService,
   ],
   controllers: [AppController],
