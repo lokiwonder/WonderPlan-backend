@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Company } from './schemas';
 import { CompanyDocument } from './schemas/company.schema';
 
+// repository : Company Collection 관련 Repository //
 @Injectable()
 export class CompanyRepository {
   constructor(
