@@ -1,19 +1,23 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CompanyRepository } from 'src/data-access/company-repository';
-import { Company } from 'src/data-access/schemas';
+import { Company, User } from 'src/data-access/schemas';
+import { UserRepository } from 'src/data-access/user.repository';
 import { ICommutingTime, IGeo } from 'src/_commons/interfaces';
 import { CreateCompanyDTO, ReadCompanyDTO } from './dto';
 import { CompanyListRes } from './interface/CompanyListRes.interface';
 
 @Injectable()
 export class CompanyService {
-  constructor(private companyRepository: CompanyRepository) {}
+  constructor(
+    private companyRepository: CompanyRepository,
+    private userRepository: UserRepository,
+  ) {}
 
   // function : 회사 정보 생성 및 삽입 //
   // arg      : CreateCompanyDTO //
   // return   : Company //
   // todo : 로직 작성 및 반환타입 작성 필요 //
-  async createCompany(dto: CreateCompanyDTO): Promise<void> {
+  async createCompany(dto: CreateCompanyDTO, user: User): Promise<void> {
     // description : 개별 객체(IGeo, ICommutingTime, Company) 생성을 위한 비구조화 //
     const {
       businessRegistrationNumber,
@@ -29,7 +33,6 @@ export class CompanyService {
       maximumLeaveHour,
       workingTime,
     } = dto;
-
     // description : 이미 생성된 회사 판별을 위한 회사 조회 //
     const readedCompany = await this.companyRepository.readCompany(
       businessRegistrationNumber,
@@ -64,6 +67,14 @@ export class CompanyService {
     };
     // description : 회사 등록 //
     await this.companyRepository.createCompany(company);
+
+    // description : 사용자 정보 변경을 위한 비구조화 //
+    const { userEmail } = user;
+    // description : 사용자 직책을 [관리자]로 사업자등록번호 수정 //
+    await this.userRepository.updateUserForCompanyAdmin(
+      userEmail,
+      businessRegistrationNumber,
+    );
   }
 
   // function : 회사정보 수정페이지 출력을 위한 회사 상세 조회 //

@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { JwtModule, JwtService } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
-import { AuthRepository } from 'src/data-access/auth-repository';
+import { JwtService } from '@nestjs/jwt';
 import { DataAccessModule } from 'src/data-access/data-access.module';
 import { JwtStrategy } from './jwt.strategy';
 import { ConfigService } from '@nestjs/config';
 import * as dotenv from 'dotenv';
 import { CompanyRepository } from 'src/data-access/company-repository';
+import { UserRepository } from 'src/data-access/user.repository';
 
 dotenv.config();
 
@@ -17,7 +16,7 @@ dotenv.config();
   controllers: [AuthController],
   providers: [
     AuthService,
-    AuthRepository,
+    UserRepository,
     CompanyRepository,
     JwtService,
     JwtStrategy,

@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { AuthRepository } from 'src/data-access/auth-repository';
 import { CompanyRepository } from 'src/data-access/company-repository';
 import { GoogleLoginRes } from './interface/GoogleLoginRes.interface';
 import { IWorkingStatus } from 'src/_commons/interfaces';
@@ -10,12 +9,13 @@ import { User } from 'src/data-access/schemas/user.schema';
 
 import { GoogleLoginDTO } from './dto';
 import { JWT_SECRET } from 'src/_commons/constants';
+import { UserRepository } from 'src/data-access/user.repository';
 
 @Injectable()
 export class AuthService {
   constructor(
     private jwtService: JwtService,
-    private authRepository: AuthRepository,
+    private userRepository: UserRepository,
     private companyRepository: CompanyRepository,
   ) {}
 
@@ -27,7 +27,7 @@ export class AuthService {
     // variable: 회원 이메일 //
     const userEmail = dto.email;
     // description: 이메일을 조건으로 회원 검색 //
-    const user = await this.authRepository.readUser(userEmail);
+    const user = await this.userRepository.readUser(userEmail);
 
     // description: 조건에 따른 회원이 데이터베이스에 존재하지 않을 때 http status 400 반환 //
     if (!user) throw new BadRequestException();

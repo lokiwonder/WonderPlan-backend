@@ -18,14 +18,17 @@ export const CREATE_USER_API = 'createUser';
 // description : GET /apis/user/readUser //
 export const READ_USER_API = 'readUser';
 
+// description : POST /apis/user/requestJoinCompany //
+export const REQUEST_JOIN_COMPANY_API = 'requestJoinCompany';
+
 // description : COMPANY Module END POINT //
 export const COMPANY_API = `${END_POINT}/company`;
 
 // description : POST /apis/company/createCompany //
 export const CREATE_COMPANY_API = `createCompany`;
 
-// description : DELETE /apis/company/readCompany //
+// description : GET /apis/company/readCompany //
 export const READ_COMPANY_API = 'readCompany';
 
-// description : DELETE /apis/company/readCompanyList //
+// description : GET /apis/company/readCompanyList //
 export const READ_COMPANY_LIST_API = 'readCompanyList';

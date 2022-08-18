@@ -4,16 +4,19 @@ import {
   Get,
   Param,
   Post,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { Company } from 'src/data-access/schemas';
+import { AuthGuard } from '@nestjs/passport';
+import { Company, User } from 'src/data-access/schemas';
 import {
   COMPANY_API,
   CREATE_COMPANY_API,
   READ_COMPANY_API,
   READ_COMPANY_LIST_API,
 } from 'src/_commons/constants/api-end-point';
+import { getUser } from 'src/_commons/decorators';
 import { CompanyService } from './company.service';
 import { CreateCompanyDTO, ReadCompanyDTO } from './dto';
 import { CompanyListRes } from './interface/CompanyListRes.interface';
@@ -25,9 +28,13 @@ export class CompanyController {
   // description: 회사 등록 //
   @Post(CREATE_COMPANY_API)
   @UsePipes(ValidationPipe)
-  async createCompany(@Body() dto: CreateCompanyDTO): Promise<void> {
+  @UseGuards(AuthGuard())
+  async createCompany(
+    @Body() dto: CreateCompanyDTO,
+    @getUser() user: User,
+  ): Promise<void> {
     console.log(dto);
-    await this.companyService.createCompany(dto);
+    await this.companyService.createCompany(dto, user);
   }
 
   // description: 개별 회사 조회 //

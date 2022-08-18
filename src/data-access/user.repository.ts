@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDTO } from 'src/user/dto';
+import { UserType } from 'src/_commons/interfaces/UserType.interface';
 import { User } from './schemas';
 import { UserDocument } from './schemas/user.schema';
 
@@ -44,5 +45,30 @@ export class UserRepository {
     const user = await this.userModel.findOne({ userEmail }).exec();
     console.log(user);
     return user;
+  }
+
+  // function : 사용자의 사업자등록번호 수정 //
+  // arg      : userEmail - 사용자 이메일, businessRegistrationNumber - 사업자등록번호 //
+  // return   : void //
+  async updateBusinessRegistrationNumber(
+    userEmail: string,
+    businessRegistrationNumber: string,
+  ): Promise<void> {
+    await this.userModel
+      .updateOne({ userEmail }, { businessRegistrationNumber })
+      .exec();
+  }
+
+  // function : 사용자의 사업자등록번호와 직책을 함께 수정 //
+  // arg      : userEmail - 사용자 이메일, businessRegistrationNumber - 사업자등록번호 //
+  // return   : void //
+  async updateUserForCompanyAdmin(
+    userEmail: string,
+    businessRegistrationNumber: string,
+  ): Promise<void> {
+    const userType = UserType.EXECUTIVES;
+    await this.userModel
+      .updateOne({ userEmail }, { businessRegistrationNumber, userType })
+      .exec();
   }
 }

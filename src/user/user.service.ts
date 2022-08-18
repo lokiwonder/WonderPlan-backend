@@ -5,6 +5,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { User } from 'src/data-access/schemas';
 import { CreateUserRes } from './interface/CreateUserRes.interface';
 import { ReadUserDTO } from './dto';
+import { RequestJoinCompanyDTO } from './dto/Request-Join-Company.dto';
 
 // description : 사용자 기능을 제공하는 Service //
 @Injectable()
@@ -50,5 +51,22 @@ export class UserService {
     console.log(userEmail);
     const user = await this.userRepository.readUser(userEmail);
     return user;
+  }
+
+  // function : 회사에 가입을 요청하는 함수 //
+  // arg      : User - JWT를 복호화하고 받은 사용자 정보, RequestJoinCompanyDTO(companyNumber) - 가입 요청을 받을 회사의 사업자등록번호 //
+  // return   : //
+  async requestJoinCompany(
+    dto: RequestJoinCompanyDTO,
+    user: User,
+  ): Promise<void> {
+    // description : 사용자 정보 중 사업자등록번호를 변경하기 위한 비구조화 //
+    const { userEmail } = user;
+    const { companyNumber } = dto;
+    // description : userEmail, companyNumber를 이용하여 사업자등록번호 수정 //
+    await this.userRepository.updateBusinessRegistrationNumber(
+      userEmail,
+      companyNumber,
+    );
   }
 }
