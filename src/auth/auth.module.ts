@@ -6,6 +6,7 @@ import { JWT_SECRET, JWT_SIGN_OPTOINS, PASSPORT_STRATEGY } from './constant';
 import { PassportModule } from '@nestjs/passport';
 import { AuthRepository } from 'src/data-access/auth-repository';
 import { DataAccessModule } from 'src/data-access/data-access.module';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { DataAccessModule } from 'src/data-access/data-access.module';
     DataAccessModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, AuthRepository, JwtService],
-  exports: [AuthService, JwtModule],
+  providers: [AuthService, AuthRepository, JwtService, JwtStrategy],
+  exports: [AuthService, JwtModule, PassportModule],
 })
 export class AuthModule {}
