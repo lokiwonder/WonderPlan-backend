@@ -66,10 +66,9 @@ export class AuthService {
       companyNumber,
       userType,
     };
+    const secret = await { secret: JWT_SECRET };
     // description: payload를 이용해 accessToken 생성 //
-    const accessToken = await this.jwtService.sign(payload, {
-      secret: JWT_SECRET,
-    });
+    const accessToken = await this.jwtService.sign(payload, secret);
     console.log(accessToken);
 
     return accessToken;
