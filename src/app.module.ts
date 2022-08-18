@@ -40,5 +40,6 @@ console.log(process.env.JWT_SECRET);
   ],
   controllers: [AppController],
   providers: [AppService],
+  exports: [PassportModule, JwtModule, MongooseModule],
 })
 export class AppModule {}

@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/data-access/schemas/user.schema';
 import { UserRepository } from './user.repository';
-import { AuthRepository } from './auth-repository';
 import { CompanyRepository } from './company-repository';
 import { Company } from './schemas';
 import { CompanySchema } from './schemas/company.schema';
@@ -20,7 +19,7 @@ import { CompanySchema } from './schemas/company.schema';
       },
     ]),
   ],
-  providers: [UserRepository, AuthRepository, CompanyRepository],
-  exports: [UserRepository, AuthRepository, CompanyRepository, MongooseModule],
+  providers: [UserRepository, CompanyRepository],
+  exports: [UserRepository, CompanyRepository, MongooseModule],
 })
 export class DataAccessModule {}

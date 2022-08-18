@@ -28,7 +28,7 @@ export class CompanyController {
   // description: 회사 등록 //
   @Post(CREATE_COMPANY_API)
   @UsePipes(ValidationPipe)
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   async createCompany(
     @Body() dto: CreateCompanyDTO,
     @getUser() user: User,
