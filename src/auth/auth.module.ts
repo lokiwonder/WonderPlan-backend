@@ -11,8 +11,8 @@ import { DataAccessModule } from 'src/data-access/data-access.module';
   imports: [
     PassportModule.register(PASSPORT_STRATEGY),
     JwtModule.register({
-      secret: JWT_SECRET,
       signOptions: JWT_SIGN_OPTOINS,
+      secretOrPrivateKey: JWT_SECRET,
     }),
     DataAccessModule,
   ],

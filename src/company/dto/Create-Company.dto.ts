@@ -30,13 +30,13 @@ export default class CreateCompanyDTO {
 
   // description: 회사 죄표 - 경도 //
   @IsNotEmpty()
-  @IsString()
-  locationLon: string;
+  @IsNumber()
+  locationLon: number;
 
   // description: 회사 죄표 - 위도 //
   @IsNotEmpty()
-  @IsString()
-  locationLat: string;
+  @IsNumber()
+  locationLat: number;
 
   // description: 최소 출근 시간 //
   @IsNotEmpty()
@@ -61,5 +61,5 @@ export default class CreateCompanyDTO {
   // description: 최소 근무 시간 //
   @IsNotEmpty()
   @IsNumber()
-  workingTikme: number;
+  workingTime: number;
 }

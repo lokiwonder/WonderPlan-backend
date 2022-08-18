@@ -3,6 +3,6 @@ export interface ICommutingTime {
   maximumOfficeHour: string;
   minimumLeaveHour: string;
   maximumLeaveHour: string;
-  workingTikme: number;
+  workingTime: number;
   lunchTime: number;
 }

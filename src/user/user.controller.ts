@@ -7,6 +7,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { User } from 'src/data-access/schemas';
 import {
   CREATE_USER_API,
   READ_USER_API,
@@ -27,6 +28,7 @@ export class UserController {
   @Post(CREATE_USER_API)
   @UsePipes(ValidationPipe)
   createUser(@Body() createUserDto: CreateUserDTO) {
+    console.log(createUserDto);
     return this.userService.createUser(createUserDto);
   }
 
@@ -35,10 +37,11 @@ export class UserController {
   // return : user //
   // todo: 반환타입 작성하기 //
   @Get(`${READ_USER_API}/:userEmail`)
-  // @UsePipes(ValidationPipe)
-  // readUser(@Param('userEmail') readUserDto: ReadUserDTO) {
-  readUser(@Param('userEmail') userEmail: string) {
-    console.log(userEmail);
-    return this.userService.readUser(userEmail);
+  @UsePipes(ValidationPipe)
+  async readUser(@Param() readUserDto: ReadUserDTO): Promise<User> {
+    console.log(readUserDto);
+    const user = await this.userService.readUser(readUserDto);
+    console.log(user);
+    return user;
   }
 }

@@ -3,19 +3,24 @@ import { GoogleLoginDTO } from './dto';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/data-access/schemas/user.schema';
 import { AuthRepository } from 'src/data-access/auth-repository';
+import { CompanyRepository } from 'src/data-access/company-repository';
+import { GoogleLoginRes } from './interface/GoogleLoginRes.interface';
+import { IWorkingStatus } from 'src/_commons/interfaces';
+import { JWT_SECRET } from './constant';
 
 @Injectable()
 export class AuthService {
   constructor(
     private jwtService: JwtService,
     private authRepository: AuthRepository,
+    private companyRepository: CompanyRepository,
   ) {}
 
   // function: 로그인 함수 //
   // arg     : dto (Request body로 전달 받은 회원 이메일, 구글 인증 token) //
   // return  : googleLoginResponseData (유저정보, 회사정보, 출근 상태, access token을 포함한 데이터) //
   // todo: 반환타입 지정 //
-  async googleLogin(dto: GoogleLoginDTO) {
+  async googleLogin(dto: GoogleLoginDTO): Promise<GoogleLoginRes> {
     // variable: 회원 이메일 //
     const { email } = dto;
     // description: 이메일을 조건으로 회원 검색 //
@@ -26,16 +31,31 @@ export class AuthService {
 
     // description: access token 생성 //
     const accessToken = this.createAccessToken(user);
-    // todo: 회사 정보 검색 //
-    // const company
+
+    // description: 회사정보 조회를 위한 companyNumber 비구조화 //
+    const { companyNumber } = user;
+    // description: 사업자등록번호로 회사 정보 조회 //
+    const company = await this.companyRepository.readCompany(companyNumber);
+
+    // description: 사용자 출근 상태 조회 //
     // todo: 출근 상태 검색 //
-    // todo: 반환 객체 생성 //
+    const workingStatus = null;
+
+    // description : 사용자 정보 + 회사 정보 + 출근 상태 + accessToken을 객체로 생성 //
+    const googleLoginRes: GoogleLoginRes = {
+      user,
+      company,
+      workingStatus,
+      accessToken,
+    };
+
+    return googleLoginRes;
   }
 
   // function : access token 생성 함수 //
   // arg      : user (access token을 생성할 유저 객체) //
   // return   : accessToken (회원 이메일, 사업자 등록번호, 직책을 포함한 JWT Token) //
-  createAccessToken(user: User) {
+  createAccessToken(user: User): string {
     // variable: 회원 이메일, 사업자등록번호, 직책 //
     const { userEmail, companyNumber, userType } = user;
     // description: jwt paload - {회원 이메일, 사업자 등록번호, 직책} //
@@ -44,8 +64,9 @@ export class AuthService {
       companyNumber,
       userType,
     };
+    console.log(payload);
     // description: payload를 이용해 accessToken 생성 //
-    const accessToken = this.jwtService.sign(payload);
+    const accessToken = this.jwtService.sign(payload, { secret: JWT_SECRET });
 
     return accessToken;
   }

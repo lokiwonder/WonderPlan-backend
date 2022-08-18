@@ -1,8 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import CreateUserDTO from './dto/Create-User.dto';
-import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from 'src/data-access/user.repository';
 import { AuthService } from 'src/auth/auth.service';
+import { User } from 'src/data-access/schemas';
+import { CreateUserRes } from './interface/CreateUserRes.interface';
+import { ReadUserDTO } from './dto';
 
 // description : 사용자 기능을 제공하는 Service //
 @Injectable()
@@ -16,23 +18,37 @@ export class UserService {
   // arg: userEmail, userName, userProfile, userBirth, userTel, companyNumber?: string = null //
   // return:  //
   // description: 사용자 이메일로 가입여부를 체크한 후  //
-  async createUser(createUserDto: CreateUserDTO) {
+  async createUser(createUserDto: CreateUserDTO): Promise<CreateUserRes> {
+    // description: 사용자 조회를 위한 userEmail 비구조화 //
     const { userEmail } = createUserDto;
-    const readedUser = this.userRepository.readUser(userEmail);
+    // description: userEmail로 사용자 정보 조회 //
+    const readedUser = await this.userRepository.readUser(userEmail);
+    console.log(readedUser);
+    // description: 조건에 따른 회원이 데이터베이스에 존재하지 않을 때 http status 400 반환 //
     if (readedUser !== undefined && readedUser !== null)
       throw new BadRequestException();
-    // 해당 email로 가입된 유저 없으므로 가입 진행
+
+    // description: 해당 email로 가입된 사용자 없으므로 가입 진행 //
     const createdUser = await this.userRepository.createUser(createUserDto);
+    // description: 사용자 정보(userEmail, userType, companyName)를 이용하여 accessToken 생성 //
     const accessToken = this.authService.createAccessToken(createdUser);
     console.log(createdUser);
     console.log(accessToken);
-    // 이미 존재하는 유저이므로 throw new BadRequestException
+    // description : 가입한 유저 정보 + accessToken으로 반환 객체 생성 //
+    const createUserRes: CreateUserRes = {
+      user: createdUser,
+      accessToken,
+    };
+    return createUserRes;
   }
 
-  // todo: 반환타입 작성하기 //
-  // arg: email: string //
-  // return : userData: ? //
-  readUser(userEmail: string) {
-    return this.userRepository.readUser(userEmail);
+  // function : userEmail로 사용자 정보 조회 //
+  // arg: userEmail: string //
+  // return : User - 사용자 정보 //
+  async readUser(readUserDTO: ReadUserDTO): Promise<User> {
+    const { userEmail } = readUserDTO;
+    console.log(userEmail);
+    const user = await this.userRepository.readUser(userEmail);
+    return user;
   }
 }

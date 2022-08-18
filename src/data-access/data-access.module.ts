@@ -21,6 +21,6 @@ import { CompanySchema } from './schemas/company.schema';
     ]),
   ],
   providers: [UserRepository, AuthRepository, CompanyRepository],
-  exports: [UserRepository, AuthRepository, MongooseModule],
+  exports: [UserRepository, AuthRepository, CompanyRepository, MongooseModule],
 })
 export class DataAccessModule {}

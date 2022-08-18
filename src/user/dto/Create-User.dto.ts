@@ -23,9 +23,4 @@ export default class CreateUserDTO {
   @IsString()
   @IsDateString()
   userBirth: string;
-
-  // description: 회원 전화번호 //
-  @IsNotEmpty()
-  @IsString()
-  userTel: string;
 }

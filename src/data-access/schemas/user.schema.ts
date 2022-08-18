@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { IWorkingStatus } from 'src/_commons/interfaces';
 
 export type UserDocument = User & Document;
 
@@ -26,6 +27,9 @@ export class User {
 
   @Prop()
   userType: string;
+
+  @Prop()
+  workingStatus: IWorkingStatus;
 }
 
 // schema: User 스키마 //

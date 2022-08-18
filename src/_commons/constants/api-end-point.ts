@@ -23,3 +23,9 @@ export const COMPANY_API = `${END_POINT}/company`;
 
 // description : POST /apis/company/createCompany //
 export const CREATE_COMPANY_API = `createCompany`;
+
+// description : DELETE /apis/company/readCompany //
+export const READ_COMPANY_API = 'readCompany';
+
+// description : DELETE /apis/company/readCompanyList //
+export const READ_COMPANY_LIST_API = 'readCompanyList';

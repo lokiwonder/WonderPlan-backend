@@ -27,6 +27,7 @@ export class UserRepository {
       userTel: null,
       userType: null,
       companyNumber: null,
+      workingStatus: null,
     };
     // description : 생성된 사용자 객체 삽입 //
     await this.userModel.insertMany(user);
@@ -40,6 +41,8 @@ export class UserRepository {
   // arg      : userEmail - 사용자 //
   // return   : User - 유저 정보 //
   async readUser(userEmail: string): Promise<User> {
-    return this.userModel.findOne({ userEmail }).exec();
+    const user = await this.userModel.findOne({ userEmail }).exec();
+    console.log(user);
+    return user;
   }
 }
