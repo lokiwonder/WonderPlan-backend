@@ -9,6 +9,7 @@ import { User } from 'src/data-access/schemas/user.schema';
 
 import { GoogleLoginDTO } from './dto';
 import { UserRepository } from 'src/data-access/user.repository';
+import { JWT_SECRET } from 'src/_commons/constants';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,6 @@ export class AuthService {
   // function: 로그인 함수 //
   // arg     : dto (Request body로 전달 받은 회원 이메일, 구글 인증 token) //
   // return  : googleLoginResponseData (유저정보, 회사정보, 출근 상태, access token을 포함한 데이터) //
-  // todo: 반환타입 지정 //
   async googleLogin(dto: GoogleLoginDTO): Promise<GoogleLoginRes> {
     // variable: 회원 이메일 //
     const userEmail = dto.email;
@@ -67,7 +67,9 @@ export class AuthService {
       userType,
     };
     // description: payload를 이용해 accessToken 생성 //
-    const accessToken = await this.jwtService.sign(payload);
+    const accessToken = await this.jwtService.sign(payload, {
+      secret: JWT_SECRET,
+    });
     console.log(accessToken);
 
     return accessToken;

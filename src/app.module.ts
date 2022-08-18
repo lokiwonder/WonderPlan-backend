@@ -15,7 +15,6 @@ import { MONGODB_URL } from './_commons/constants';
     CompanyModule,
     DataAccessModule,
     MongooseModule.forRoot(MONGODB_URL),
-    DataAccessModule,
   ],
   controllers: [AppController],
   providers: [AppService],
