@@ -8,6 +8,9 @@ import { AuthRepository } from 'src/data-access/auth-repository';
 import { DataAccessModule } from 'src/data-access/data-access.module';
 import { JwtStrategy } from './jwt.strategy';
 import { ConfigService } from '@nestjs/config';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Module({
   imports: [
