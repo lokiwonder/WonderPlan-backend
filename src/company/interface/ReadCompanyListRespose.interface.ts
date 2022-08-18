@@ -1,5 +1,5 @@
 // interface : 회사 목록 조회용 인터페이스 //
-export interface CompanyListRes {
+export default interface IReadCompanyListResponse {
   // description : 사업자등록번호 //
   companyNumber: string;
 

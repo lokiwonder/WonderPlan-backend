@@ -5,6 +5,8 @@ import { UserRepository } from './user.repository';
 import { CompanyRepository } from './company-repository';
 import { Company } from './schemas';
 import { CompanySchema } from './schemas/company.schema';
+import { ChatRepository } from './chat-repository';
+import { Chat, ChatSchema } from './schemas/chat.schema';
 
 @Module({
   imports: [
@@ -17,9 +19,13 @@ import { CompanySchema } from './schemas/company.schema';
         name: Company.name,
         schema: CompanySchema,
       },
+      {
+        name: Chat.name,
+        schema: ChatSchema,
+      },
     ]),
   ],
-  providers: [UserRepository, CompanyRepository],
-  exports: [UserRepository, CompanyRepository, MongooseModule],
+  providers: [UserRepository, CompanyRepository, ChatRepository],
+  exports: [UserRepository, CompanyRepository, ChatRepository, MongooseModule],
 })
 export class DataAccessModule {}

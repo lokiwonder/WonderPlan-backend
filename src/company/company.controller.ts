@@ -19,7 +19,7 @@ import {
 import { getUser } from 'src/_commons/decorators';
 import { CompanyService } from './company.service';
 import { CreateCompanyDTO, ReadCompanyDTO } from './dto';
-import { CompanyListRes } from './interface/CompanyListRes.interface';
+import { CompanyListRes } from './interface/ReadCompanyListRespose.interface';
 
 @Controller(COMPANY_API)
 export class CompanyController {

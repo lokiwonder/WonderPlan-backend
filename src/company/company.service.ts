@@ -4,7 +4,8 @@ import { Company, User } from 'src/data-access/schemas';
 import { UserRepository } from 'src/data-access/user.repository';
 import { ICommutingTime, IGeo } from 'src/_commons/interfaces';
 import { CreateCompanyDTO, ReadCompanyDTO } from './dto';
-import { CompanyListRes } from './interface/CompanyListRes.interface';
+import { setReadCompanyListResponse } from './function';
+import { IReadCompanyListResponse } from './interface';
 
 @Injectable()
 export class CompanyService {
@@ -15,8 +16,7 @@ export class CompanyService {
 
   // function : 회사 정보 생성 및 삽입 //
   // arg      : CreateCompanyDTO //
-  // return   : Company //
-  // todo : 로직 작성 및 반환타입 작성 필요 //
+  // return   : Company () //
   async createCompany(dto: CreateCompanyDTO, user: User): Promise<void> {
     // description : 개별 객체(IGeo, ICommutingTime, Company) 생성을 위한 비구조화 //
     const {
@@ -33,15 +33,21 @@ export class CompanyService {
       maximumLeaveHour,
       workingTime,
     } = dto;
-    // description : 이미 생성된 회사 판별을 위한 회사 조회 //
+    // description: 사용자 정보 변경을 위한 비구조화 //
+    const { userEmail } = user;
+
+    // todo: 국세청 사업자등록번호 진위 확인 API call //
+
+    // todo: 진위 확인 시 http status가 4xx 혹은 500 일때 진위 확인 실패라 하고 http status 4?? 반환 //
+
+    // description: 이미 생성된 회사 판별을 위한 회사 조회 //
     const readedCompany = await this.companyRepository.readCompany(
       businessRegistrationNumber,
     );
-    // description : 조건에 따른 회사가 데이터베이스에 존재할 때 http status 400 반환 //
-    if (readedCompany !== null && readedCompany !== undefined)
-      throw new BadRequestException();
+    // description: 조건에 따른 회사가 데이터베이스에 존재할 때 http status 400 반환 //
+    if (readedCompany !== null) throw new BadRequestException();
 
-    // description : 회사 위치 정보를 담은 객체 생성 //
+    // description: 회사 위치 정보를 담은 객체 생성 //
     const companyLocation: IGeo = {
       type: 'point',
       coordinates: [locationLon, locationLat],
@@ -68,8 +74,6 @@ export class CompanyService {
     // description : 회사 등록 //
     await this.companyRepository.createCompany(company);
 
-    // description : 사용자 정보 변경을 위한 비구조화 //
-    const { userEmail } = user;
     // description : 사용자 직책을 [관리자]로 사업자등록번호 수정 //
     await this.userRepository.updateUserForCompanyAdmin(
       userEmail,
@@ -90,31 +94,16 @@ export class CompanyService {
 
   // function : 회원가입 시 회사등록을 위한 회사 목록 조회 //
   // return   : Company[] -  //
-  async readCompanyList(): Promise<CompanyListRes[]> {
+  async readCompanyList(): Promise<IReadCompanyListResponse[]> {
     // description : 회사 정보 목록 조회 //
     const companyList = await this.companyRepository.readCompanyList();
     // description : 반환타입 List 선언 //
-    const resList: CompanyListRes[] = [];
+    const responseList: IReadCompanyListResponse[] = [];
 
     // description : 반환타입 List에 데이터 전달 //
-    companyList.forEach((company) => {
-      // description : 반환타입 객체로 전달할 사업자등록번호, 회사명, 회사주소, 대표자 성명 비구조화 //
-      const {
-        businessRegistrationNumber,
-        companyName,
-        companyAddress,
-        representativeName,
-      } = company;
-      // description : 반환타입 객체 생성 //
-      const res: CompanyListRes = {
-        companyNumber: businessRegistrationNumber,
-        companyName,
-        representativeName,
-        companyAddress,
-      };
-      // description : 반환타입 List에 넣기 //
-      resList.push(res);
-    });
-    return resList;
+    companyList.forEach((company) =>
+      setReadCompanyListResponse(responseList, company),
+    );
+    return responseList;
   }
 }
