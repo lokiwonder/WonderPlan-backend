@@ -7,6 +7,7 @@ import { CompanyModule } from './company/company.module';
 import { DataAccessModule } from './data-access/data-access.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MONGODB_URL } from './_commons/constants';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -15,6 +16,11 @@ import { MONGODB_URL } from './_commons/constants';
     CompanyModule,
     DataAccessModule,
     MongooseModule.forRoot(MONGODB_URL),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env.development',
+    }),
+    ConfigService,
   ],
   controllers: [AppController],
   providers: [AppService],
