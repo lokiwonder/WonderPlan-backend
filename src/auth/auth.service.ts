@@ -70,7 +70,7 @@ export class AuthService {
     console.log(payload);
     // description: payload를 이용해 accessToken 생성 //
     const accessToken = this.jwtService.sign(payload, {
-      secret: JWT_SECRET,
+      secret: process.env.JWT_SECRET,
     });
 
     return accessToken;
