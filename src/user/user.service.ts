@@ -32,7 +32,7 @@ export class UserService {
     // description: 해당 email로 가입된 사용자 없으므로 가입 진행 //
     const createdUser = await this.userRepository.createUser(createUserDto);
     // description: 사용자 정보(userEmail, userType, companyName)를 이용하여 accessToken 생성 //
-    const accessToken = this.authService.createAccessToken(createdUser);
+    const accessToken = await this.authService.createAccessToken(createdUser);
     console.log(createdUser);
     console.log(accessToken);
     // description : 가입한 유저 정보 + accessToken으로 반환 객체 생성 //

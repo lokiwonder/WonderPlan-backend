@@ -33,7 +33,7 @@ export class AuthService {
     if (!user) throw new BadRequestException();
 
     // description: access token 생성 //
-    const accessToken = this.createAccessToken(user);
+    const accessToken = await this.createAccessToken(user);
 
     // description: 회사정보 조회를 위한 companyNumber 비구조화 //
     const { companyNumber } = user;
@@ -58,7 +58,7 @@ export class AuthService {
   // function : access token 생성 함수 //
   // arg      : user (access token을 생성할 유저 객체) //
   // return   : accessToken (회원 이메일, 사업자 등록번호, 직책을 포함한 JWT Token) //
-  createAccessToken(user: User): string {
+  async createAccessToken(user: User): Promise<string> {
     // variable: 회원 이메일, 사업자등록번호, 직책 //
     const { userEmail, companyNumber, userType } = user;
     // description: jwt paload - {회원 이메일, 사업자 등록번호, 직책} //
@@ -68,7 +68,9 @@ export class AuthService {
       userType,
     };
     // description: payload를 이용해 accessToken 생성 //
-    const accessToken = this.jwtService.sign(payload, { secret: JWT_SECRET });
+    const accessToken = this.jwtService.signAsync(payload, {
+      secret: JWT_SECRET,
+    });
     console.log(accessToken);
 
     return accessToken;
