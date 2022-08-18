@@ -14,7 +14,7 @@ export class AuthRepository {
   // function: 사용자 검색 //
   // arg     : email
   // return  : User
-  readUser(email: string): Promise<User> {
-    return this.userModel.findOne({ email }).exec();
+  async readUser(userEmail: string): Promise<User> {
+    return await this.userModel.findOne({ userEmail }).exec();
   }
 }

@@ -1,12 +1,15 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { GoogleLoginDTO } from './dto';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/data-access/schemas/user.schema';
+
 import { AuthRepository } from 'src/data-access/auth-repository';
 import { CompanyRepository } from 'src/data-access/company-repository';
 import { GoogleLoginRes } from './interface/GoogleLoginRes.interface';
 import { IWorkingStatus } from 'src/_commons/interfaces';
 import { JWT_SECRET } from './constant';
+
+import { User } from 'src/data-access/schemas/user.schema';
+
+import { GoogleLoginDTO } from './dto';
 
 @Injectable()
 export class AuthService {
@@ -22,12 +25,12 @@ export class AuthService {
   // todo: 반환타입 지정 //
   async googleLogin(dto: GoogleLoginDTO): Promise<GoogleLoginRes> {
     // variable: 회원 이메일 //
-    const { email } = dto;
+    const { userEmail } = dto;
     // description: 이메일을 조건으로 회원 검색 //
-    const user = await this.authRepository.readUser(email);
+    const user = await this.authRepository.readUser(userEmail);
 
     // description: 조건에 따른 회원이 데이터베이스에 존재하지 않을 때 http status 400 반환 //
-    if (user === null || user === undefined) throw new BadRequestException();
+    if (!user) throw new BadRequestException();
 
     // description: access token 생성 //
     const accessToken = this.createAccessToken(user);

@@ -6,7 +6,7 @@ export default class GoogleLoginDTO {
   @IsNotEmpty()
   @IsString()
   @IsEmail()
-  email: string;
+  userEmail: string;
 
   // description : googleAuth ID Token //
   @IsNotEmpty()
