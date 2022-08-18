@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtModule, JwtService } from '@nestjs/jwt';
-import { JWT_SECRET, JWT_SIGN_OPTOINS, PASSPORT_STRATEGY } from './constant';
 import { PassportModule } from '@nestjs/passport';
 import { AuthRepository } from 'src/data-access/auth-repository';
 import { DataAccessModule } from 'src/data-access/data-access.module';
@@ -24,6 +23,6 @@ dotenv.config();
     JwtStrategy,
     ConfigService,
   ],
-  exports: [AuthService, JwtService],
+  exports: [AuthService, JwtService, JwtStrategy],
 })
 export class AuthModule {}

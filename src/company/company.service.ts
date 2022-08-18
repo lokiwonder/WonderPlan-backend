@@ -96,7 +96,7 @@ export class CompanyService {
       } = company;
       // description : 반환타입 객체 생성 //
       const res: CompanyListRes = {
-        businessRegistrationNumber,
+        companyNumber: businessRegistrationNumber,
         companyName,
         representativeName,
         companyAddress,

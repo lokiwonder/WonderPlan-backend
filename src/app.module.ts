@@ -6,15 +6,21 @@ import { UserModule } from './user/user.module';
 import { CompanyModule } from './company/company.module';
 import { DataAccessModule } from './data-access/data-access.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { MONGODB_URL } from './_commons/constants';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import {
   JWT_SECRET,
   JWT_SIGN_OPTOINS,
+  MONGODB_URL,
   PASSPORT_STRATEGY,
-} from './auth/constant';
+} from './_commons/constants';
+
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
+console.log(process.env.JWT_SECRET);
 
 @Module({
   imports: [
@@ -22,6 +28,7 @@ import {
     UserModule,
     CompanyModule,
     DataAccessModule,
+    ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(MONGODB_URL),
     PassportModule.register(PASSPORT_STRATEGY),
     JwtModule.register({

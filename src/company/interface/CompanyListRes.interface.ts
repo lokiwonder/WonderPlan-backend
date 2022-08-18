@@ -1,7 +1,7 @@
 // interface : 회사 목록 조회용 인터페이스 //
 export interface CompanyListRes {
   // description : 사업자등록번호 //
-  businessRegistrationNumber: string;
+  companyNumber: string;
 
   // description : 회사명 //
   companyName: string;

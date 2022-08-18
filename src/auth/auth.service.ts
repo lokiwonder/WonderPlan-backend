@@ -5,11 +5,11 @@ import { AuthRepository } from 'src/data-access/auth-repository';
 import { CompanyRepository } from 'src/data-access/company-repository';
 import { GoogleLoginRes } from './interface/GoogleLoginRes.interface';
 import { IWorkingStatus } from 'src/_commons/interfaces';
-import { JWT_SECRET } from './constant';
 
 import { User } from 'src/data-access/schemas/user.schema';
 
 import { GoogleLoginDTO } from './dto';
+import { JWT_SECRET } from 'src/_commons/constants';
 
 @Injectable()
 export class AuthService {
@@ -67,9 +67,9 @@ export class AuthService {
       companyNumber,
       userType,
     };
-    console.log(payload);
     // description: payload를 이용해 accessToken 생성 //
     const accessToken = this.jwtService.sign(payload, { secret: JWT_SECRET });
+    console.log(accessToken);
 
     return accessToken;
   }

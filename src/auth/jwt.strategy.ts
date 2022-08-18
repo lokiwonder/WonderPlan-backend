@@ -5,7 +5,7 @@ import { Model } from 'mongoose';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { User } from 'src/data-access/schemas';
 import { UserDocument } from 'src/data-access/schemas/user.schema';
-import { JWT_SECRET } from './constant';
+import { JWT_SECRET } from 'src/_commons/constants';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
