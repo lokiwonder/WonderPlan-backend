@@ -16,7 +16,7 @@ export class UserService {
 
   // todo: 반환타입 작성하기 //
   // arg: userEmail, userName, userProfile, userBirth, userTel, companyNumber?: string = null //
-  // return:  //
+  // return: CreateUserRes(User, accessToken) //
   // description: 사용자 이메일로 가입여부를 체크한 후  //
   async createUser(createUserDto: CreateUserDTO): Promise<CreateUserRes> {
     // description: 사용자 조회를 위한 userEmail 비구조화 //

@@ -25,10 +25,9 @@ export class CompanyController {
   // description: 회사 등록 //
   @Post(CREATE_COMPANY_API)
   @UsePipes(ValidationPipe)
-  async createCompany(@Body() dto: CreateCompanyDTO): Promise<Company> {
+  async createCompany(@Body() dto: CreateCompanyDTO): Promise<void> {
     console.log(dto);
-    const company = await this.companyService.createCompany(dto);
-    return company;
+    await this.companyService.createCompany(dto);
   }
 
   // description: 개별 회사 조회 //

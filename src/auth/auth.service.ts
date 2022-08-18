@@ -25,7 +25,7 @@ export class AuthService {
   // todo: 반환타입 지정 //
   async googleLogin(dto: GoogleLoginDTO): Promise<GoogleLoginRes> {
     // variable: 회원 이메일 //
-    const { userEmail } = dto;
+    const userEmail = dto.email;
     // description: 이메일을 조건으로 회원 검색 //
     const user = await this.authRepository.readUser(userEmail);
 

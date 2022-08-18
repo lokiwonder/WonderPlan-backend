@@ -15,6 +15,7 @@ export class AuthRepository {
   // arg     : email
   // return  : User
   async readUser(userEmail: string): Promise<User> {
-    return await this.userModel.findOne({ userEmail }).exec();
+    const user = await this.userModel.findOne({ userEmail }).exec();
+    return user;
   }
 }

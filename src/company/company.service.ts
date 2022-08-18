@@ -13,7 +13,7 @@ export class CompanyService {
   // arg      : CreateCompanyDTO //
   // return   : Company //
   // todo : 로직 작성 및 반환타입 작성 필요 //
-  async createCompany(dto: CreateCompanyDTO): Promise<Company> {
+  async createCompany(dto: CreateCompanyDTO): Promise<void> {
     // description : 개별 객체(IGeo, ICommutingTime, Company) 생성을 위한 비구조화 //
     const {
       businessRegistrationNumber,
@@ -63,9 +63,7 @@ export class CompanyService {
       commutingTime,
     };
     // description : 회사 등록 //
-    const createdCompany = await this.companyRepository.createCompany(company);
-
-    return createdCompany;
+    await this.companyRepository.createCompany(company);
   }
 
   // function : 회사정보 수정페이지 출력을 위한 회사 상세 조회 //
