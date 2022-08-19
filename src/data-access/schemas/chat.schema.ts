@@ -12,7 +12,7 @@ export class Chat {
   @Prop()
   message: string;
 
-  @Prop()
+  @Prop({ type: Object })
   room: IRoom;
 }
 

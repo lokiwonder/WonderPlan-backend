@@ -9,6 +9,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MONGODB_URL } from './_commons/constants';
 import { ChatModule } from './chat/chat.module';
 import { ChatGateway } from './chat/chat.gateway';
+import { CommuteModule } from './commute/commute.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ChatGateway } from './chat/chat.gateway';
     DataAccessModule,
     MongooseModule.forRoot(MONGODB_URL),
     ChatModule,
+    CommuteModule,
   ],
   controllers: [AppController],
   providers: [AppService, ChatGateway],

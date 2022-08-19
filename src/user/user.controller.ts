@@ -10,13 +10,15 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from 'src/data-access/schemas';
+import { PASSPORT_DEFAULT_STRATEGY } from 'src/_commons/constants';
 import {
   CREATE_USER_API,
+  READ_OWN_INFORMATION_API,
   READ_USER_API,
   REQUEST_JOIN_COMPANY_API,
   USER_API,
 } from 'src/_commons/constants/api-end-point';
-import { getUser } from 'src/_commons/decorators';
+import { GetUser } from 'src/_commons/decorators';
 import { ReadUserDTO } from './dto';
 import CreateUserDTO from './dto/Create-User.dto';
 import { RequestJoinCompanyDTO } from './dto/Request-Join-Company.dto';
@@ -36,7 +38,7 @@ export class UserController {
   }
 
   // description : userEmail로 유저 조회 //
-  @Get(`${READ_USER_API}/:userEmail`)
+  @Get(READ_USER_API)
   @UsePipes(ValidationPipe)
   async readUser(@Param() readUserDto: ReadUserDTO): Promise<User> {
     console.log(readUserDto);
@@ -45,14 +47,27 @@ export class UserController {
     return user;
   }
 
+  // description : 본인의 사용자 정보 조회 //
+  @Get(READ_OWN_INFORMATION_API)
+  @UseGuards(AuthGuard(PASSPORT_DEFAULT_STRATEGY))
+  async readOwnInformation(@GetUser() user: User): Promise<User> {
+    const OwnUserInformation = await this.userService.readUser(user);
+    return OwnUserInformation;
+  }
+
   // description : 회사로 가입 요청을 보냄 //
   @Post(REQUEST_JOIN_COMPANY_API)
   @UsePipes(ValidationPipe)
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard(PASSPORT_DEFAULT_STRATEGY))
   async requestJoinCompany(
     @Body() dto: RequestJoinCompanyDTO,
-    @getUser() user: User,
+    @GetUser() user: User,
   ): Promise<void> {
     return this.userService.requestJoinCompany(dto, user);
+  }
+
+  @Get('super')
+  async makeSuperAccount() {
+    return this.userService.makeSuperAccount();
   }
 }

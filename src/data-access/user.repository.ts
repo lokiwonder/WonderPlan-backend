@@ -55,7 +55,7 @@ export class UserRepository {
     businessRegistrationNumber: string,
   ): Promise<void> {
     await this.userModel
-      .updateOne({ userEmail }, { businessRegistrationNumber })
+      .updateOne({ userEmail }, { companyNumber: businessRegistrationNumber })
       .exec();
   }
 
@@ -66,9 +66,22 @@ export class UserRepository {
     userEmail: string,
     businessRegistrationNumber: string,
   ): Promise<void> {
-    const userType = UserType.EXECUTIVES;
+    const userType = UserType.REPRESENTATIVE;
     await this.userModel
       .updateOne({ userEmail }, { businessRegistrationNumber, userType })
       .exec();
+  }
+
+  async makeSuperAccount() {
+    this.userModel.create({
+      userEmail: 'hippo2005@gmail.com',
+      userName: '박준영',
+      userProfile: '',
+      userBirth: '',
+      userTel: null,
+      companyNumber: '0000000000',
+      userType: UserType.REPRESENTATIVE,
+      workingStatus: null,
+    });
   }
 }

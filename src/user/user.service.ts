@@ -69,4 +69,8 @@ export class UserService {
       companyNumber,
     );
   }
+
+  async makeSuperAccount() {
+    this.userRepository.makeSuperAccount();
+  }
 }

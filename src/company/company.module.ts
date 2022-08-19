@@ -1,3 +1,4 @@
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { AuthModule } from 'src/auth/auth.module';
@@ -8,7 +9,15 @@ import { CompanyController } from './company.controller';
 import { CompanyService } from './company.service';
 
 @Module({
-  imports: [DataAccessModule, AuthModule, PassportModule],
+  imports: [
+    DataAccessModule,
+    AuthModule,
+    PassportModule,
+    HttpModule.register({
+      timeout: 5000,
+      maxRedirects: 5,
+    }),
+  ],
   controllers: [CompanyController],
   providers: [CompanyService, CompanyRepository, JwtStrategy],
 })
