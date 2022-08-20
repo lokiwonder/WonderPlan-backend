@@ -7,8 +7,6 @@ import { CompanyModule } from './company/company.module';
 import { DataAccessModule } from './data-access/data-access.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MONGODB_URL } from './_commons/constants';
-import { ChatModule } from './chat/chat.module';
-import { ChatGateway } from './chat/chat.gateway';
 import { CommuteModule } from './commute/commute.module';
 import { CalendarModule } from './calendar/calendar.module';
 
@@ -19,12 +17,11 @@ import { CalendarModule } from './calendar/calendar.module';
     CompanyModule,
     DataAccessModule,
     MongooseModule.forRoot(MONGODB_URL),
-    ChatModule,
     CommuteModule,
     CalendarModule,
   ],
   controllers: [AppController],
-  providers: [AppService, ChatGateway],
+  providers: [AppService],
   exports: [MongooseModule],
 })
 export class AppModule {}

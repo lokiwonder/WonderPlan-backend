@@ -5,8 +5,6 @@ import { UserRepository } from './user.repository';
 import { CompanyRepository } from './company-repository';
 import { Commute, Company } from './schemas';
 import { CompanySchema } from './schemas/company.schema';
-import { ChatRepository } from './chat-repository';
-import { Chat, ChatSchema } from './schemas/chat.schema';
 import { CommuteRepository } from './commute-repository';
 import { CommuteSchema } from './schemas/commute.schema';
 import { CalendarRepository } from './calendar-repository';
@@ -23,10 +21,6 @@ import { CalendarRepository } from './calendar-repository';
         schema: CompanySchema,
       },
       {
-        name: Chat.name,
-        schema: ChatSchema,
-      },
-      {
         name: Commute.name,
         schema: CommuteSchema,
       },
@@ -35,7 +29,6 @@ import { CalendarRepository } from './calendar-repository';
   providers: [
     UserRepository,
     CompanyRepository,
-    ChatRepository,
     CommuteRepository,
     CalendarRepository,
   ],
