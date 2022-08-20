@@ -12,6 +12,7 @@ import {
   JWT_SIGN_OPTOINS,
   PASSPORT_DEFAULT_STRATEGY,
 } from 'src/_commons/constants';
+import { CommuteRepository } from 'src/data-access/commute-repository';
 
 @Module({
   imports: [
@@ -23,7 +24,13 @@ import {
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, UserRepository, CompanyRepository],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    UserRepository,
+    CompanyRepository,
+    CommuteRepository,
+  ],
   exports: [JwtStrategy, JwtModule, PassportModule],
 })
 export class AuthModule {}

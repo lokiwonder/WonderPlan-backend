@@ -1,8 +1,6 @@
 import { User } from 'src/data-access/schemas';
 import { IWorkingStatus } from 'src/_commons/interfaces';
 import ICommute from 'src/_commons/interfaces/Commute.interface';
-import { UTC_KST_DIFFERENCE } from '../constant';
-import { RecordWorkDTO } from '../dto';
 import { ICommuteDateTime } from '../interface';
 
 export const getCommuteDateTime = () => {

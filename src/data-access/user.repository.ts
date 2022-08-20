@@ -28,7 +28,6 @@ export class UserRepository {
       userTel: null,
       userType: null,
       companyNumber: null,
-      workingStatus: null,
     };
     // description : 생성된 사용자 객체 삽입 //
     await this.userModel.insertMany(user);

@@ -10,6 +10,8 @@ import { User } from 'src/data-access/schemas/user.schema';
 import { GoogleLoginDTO } from './dto';
 import { UserRepository } from 'src/data-access/user.repository';
 import { JWT_SECRET } from 'src/_commons/constants';
+import { CommuteRepository } from 'src/data-access/commute-repository';
+import { getCommuteDateTime } from 'src/commute/function';
 
 @Injectable()
 export class AuthService {
@@ -17,6 +19,7 @@ export class AuthService {
     private jwtService: JwtService,
     private userRepository: UserRepository,
     private companyRepository: CompanyRepository,
+    private commuteRepository: CommuteRepository,
   ) {}
 
   // function: 로그인 함수 //
@@ -39,9 +42,21 @@ export class AuthService {
     // description: 사업자등록번호로 회사 정보 조회 //
     const company = await this.companyRepository.readCompany(companyNumber);
 
-    // description: 사용자 출근 상태 조회 //
+    // description: 출근 상태 조회를 위한 현재 일자 및 시간 객체 생성 //
+    const commuteDateTime = getCommuteDateTime();
+    // description: 일자 추출을 위한 비구조화 //
+    const { commuteDate } = commuteDateTime;
+    // description: 사용자 출근 기록 조회 //
     // todo: 출근 상태 검색 //
-    const workingStatus = null;
+    const commuteRecords = await this.commuteRepository.readTodaysRecords(
+      user,
+      commuteDate,
+    );
+    //description: 사용자 출근 기록을 추출하기 위한 비구조화 //
+    const workingStatus =
+      commuteRecords.length > 0
+        ? commuteRecords[0].workingStatus
+        : IWorkingStatus.LEAVEWORK;
 
     // description : 사용자 정보 + 회사 정보 + 출근 상태 + accessToken을 객체로 생성 //
     const googleLoginRes: GoogleLoginRes = {

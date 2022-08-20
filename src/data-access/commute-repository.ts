@@ -16,7 +16,7 @@ export class CommuteRepository {
   ) {}
 
   // function : 당일의 출퇴근 기록 조회 //
-  // arg      : User - 사용자 정보 //
+  // arg      : User - 사용자 정보, currentDate - 오늘 일자 //
   // return   : ICommute[] - 출퇴근 정보 목록(사용자 이메일, 사업자등록번호, 일자, 시작시간, 종료시간, 근무 상태, 기타사항)
   async readTodaysRecords(
     user: User,
@@ -58,7 +58,7 @@ export class CommuteRepository {
     return result.modifiedCount === 1;
   }
 
-  // function : 출근 기록 insert //
+  // function : 출근 기록 create //
   // arg      : ICommute - 사용자 이메일, 사업자등록번호, 일자, 시작시간, 근무 상태 //
   // return   : Commute - 생성된 출퇴근 기록 //
   async createAttendanceRecord(commute: ICommute): Promise<ICommute> {

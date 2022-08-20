@@ -11,7 +11,7 @@ export interface GoogleLoginRes {
   company: Company;
 
   // description : 근무 상태 //
-  workingStatus: IWorkingStatus;
+  workingStatus: string;
 
   // description : 사용자 인증 토큰 //
   accessToken: string;
