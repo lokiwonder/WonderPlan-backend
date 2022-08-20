@@ -1,5 +1,4 @@
 import { Company, User } from 'src/data-access/schemas';
-import { IWorkingStatus } from 'src/_commons/interfaces';
 
 // interface : 구글 로그인 이후 반환되는 유저 관련 정보 //
 // todo: 연차값 추가 필요 //

@@ -1,5 +1,5 @@
 import { IsDate, IsDateString, IsNotEmpty, IsString } from 'class-validator';
-import { IWorkingStatus } from 'src/_commons/interfaces';
+import { WorkingStatus } from 'src/_commons/classes';
 
 export default class RecordWorkDTO {
   @IsNotEmpty()
@@ -9,5 +9,5 @@ export default class RecordWorkDTO {
 
   @IsNotEmpty()
   @IsString()
-  workingStatus: IWorkingStatus;
+  workingStatus: WorkingStatus;
 }

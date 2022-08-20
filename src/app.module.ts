@@ -10,6 +10,7 @@ import { MONGODB_URL } from './_commons/constants';
 import { ChatModule } from './chat/chat.module';
 import { ChatGateway } from './chat/chat.gateway';
 import { CommuteModule } from './commute/commute.module';
+import { CalendarModule } from './calendar/calendar.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { CommuteModule } from './commute/commute.module';
     MongooseModule.forRoot(MONGODB_URL),
     ChatModule,
     CommuteModule,
+    CalendarModule,
   ],
   controllers: [AppController],
   providers: [AppService, ChatGateway],

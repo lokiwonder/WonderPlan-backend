@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UTC_KST_DIFFERENCE } from 'src/commute/constant';
 import { ICommuteDateTime } from 'src/commute/interface';
-import { IWorkingStatus } from 'src/_commons/interfaces';
+import { WorkingStatus } from 'src/_commons/classes';
 import ICommute from 'src/_commons/interfaces/Commute.interface';
 import { Commute, User } from './schemas';
 import { CommuteDocument } from './schemas/commute.schema';
@@ -41,7 +40,7 @@ export class CommuteRepository {
   ): Promise<boolean> {
     const { userEmail, companyNumber } = user;
     const { commuteDate, commuteTime } = commuteDateTime;
-    const workingStatus = IWorkingStatus.LEAVEWORK;
+    const workingStatus = WorkingStatus.LEAVEWORK;
     const result = await this.commuteModel
       .updateOne(
         {
@@ -60,10 +59,24 @@ export class CommuteRepository {
 
   // function : 출근 기록 create //
   // arg      : ICommute - 사용자 이메일, 사업자등록번호, 일자, 시작시간, 근무 상태 //
-  // return   : Commute - 생성된 출퇴근 기록 //
+  // return   : ICommute - 생성된 출퇴근 기록 //
   async createAttendanceRecord(commute: ICommute): Promise<ICommute> {
     const result = await this.commuteModel.create(commute);
     console.log(result);
     return result;
+  }
+
+  // function : 월별 일정 조회(출퇴근 제외) //
+  // return   : Commute[] - 일정 조회(출퇴근 제외) //
+  async readMonthSchedule(): Promise<ICommute[]> {
+    const commuteList = await this.commuteModel
+      .find({
+        $nor: [
+          { workingStatus: WorkingStatus.ATTENDANCE },
+          { workingStatus: WorkingStatus.LEAVEWORK },
+        ],
+      })
+      .exec();
+    return commuteList;
   }
 }

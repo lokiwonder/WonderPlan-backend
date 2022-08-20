@@ -30,10 +30,8 @@ export class UserRepository {
       companyNumber: null,
     };
     // description : 생성된 사용자 객체 삽입 //
-    await this.userModel.insertMany(user);
+    const insertedUser = await this.userModel.create(user);
 
-    // description : 삽입된 사용자 조회 //
-    const insertedUser = this.readUser(userEmail);
     return insertedUser;
   }
 

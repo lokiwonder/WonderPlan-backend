@@ -1,5 +1,5 @@
 import { User } from 'src/data-access/schemas';
-import { IWorkingStatus } from 'src/_commons/interfaces';
+import { WorkingStatus } from 'src/_commons/classes';
 import ICommute from 'src/_commons/interfaces/Commute.interface';
 import { ICommuteDateTime } from '../interface';
 
@@ -16,9 +16,9 @@ export const getCommuteDateTime = () => {
 export const canLeaveWork = (commute: ICommute) => {
   const { workingStatus } = commute;
   return (
-    workingStatus !== IWorkingStatus.HALF_VACATION &&
-    workingStatus !== IWorkingStatus.VACATION &&
-    workingStatus !== IWorkingStatus.LEAVEWORK
+    workingStatus !== WorkingStatus.HALF_VACATION &&
+    workingStatus !== WorkingStatus.VACATION &&
+    workingStatus !== WorkingStatus.LEAVEWORK
   );
 };
 

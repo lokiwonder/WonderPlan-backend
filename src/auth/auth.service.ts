@@ -3,7 +3,6 @@ import { JwtService } from '@nestjs/jwt';
 
 import { CompanyRepository } from 'src/data-access/company-repository';
 import { GoogleLoginRes } from './interface/GoogleLoginRes.interface';
-import { IWorkingStatus } from 'src/_commons/interfaces';
 
 import { User } from 'src/data-access/schemas/user.schema';
 
@@ -12,6 +11,7 @@ import { UserRepository } from 'src/data-access/user.repository';
 import { JWT_SECRET } from 'src/_commons/constants';
 import { CommuteRepository } from 'src/data-access/commute-repository';
 import { getCommuteDateTime } from 'src/commute/function';
+import { WorkingStatus } from 'src/_commons/classes';
 
 @Injectable()
 export class AuthService {
@@ -56,7 +56,7 @@ export class AuthService {
     const workingStatus =
       commuteRecords.length > 0
         ? commuteRecords[0].workingStatus
-        : IWorkingStatus.LEAVEWORK;
+        : WorkingStatus.LEAVEWORK;
 
     // description : 사용자 정보 + 회사 정보 + 출근 상태 + accessToken을 객체로 생성 //
     const googleLoginRes: GoogleLoginRes = {

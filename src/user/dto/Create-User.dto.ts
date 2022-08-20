@@ -14,8 +14,6 @@ export default class CreateUserDTO {
   userName: string;
 
   // description: 회원 프로필 사진 //
-  @IsNotEmpty()
-  @IsString()
   userProfile: string;
 
   // description: 회원 생년월일 (yyyy-MM-dd) //

@@ -9,6 +9,7 @@ import { ChatRepository } from './chat-repository';
 import { Chat, ChatSchema } from './schemas/chat.schema';
 import { CommuteRepository } from './commute-repository';
 import { CommuteSchema } from './schemas/commute.schema';
+import { CalendarRepository } from './calendar-repository';
 
 @Module({
   imports: [
@@ -36,7 +37,13 @@ import { CommuteSchema } from './schemas/commute.schema';
     CompanyRepository,
     ChatRepository,
     CommuteRepository,
+    CalendarRepository,
   ],
-  exports: [UserRepository, CompanyRepository, ChatRepository, MongooseModule],
+  exports: [
+    UserRepository,
+    CompanyRepository,
+    CalendarRepository,
+    MongooseModule,
+  ],
 })
 export class DataAccessModule {}

@@ -51,5 +51,14 @@ export const COMMUTE_API = `${END_POINT}/commute`;
 // description : POST /apis/commute/recordWork // - 추가됨
 export const RECORD_WORK_API = 'recordWork';
 
-// // description : PATCH /apis/commute/endWork // - 추가됨
-// export const END_WORK_API = 'endWork';
+// description : CALENDAR Module END POINT // -추가됨
+export const CALENDAR_API = '${END_POINT}/calendar';
+
+// description : GET /apis/calendar/readMonthSchedule // -추가됨
+export const READ_MONTH_SCHEDULE_API = 'readMonthSchedule';
+
+// description : GET /apis/calendar/readDaySchedule // -추가됨
+export const READ_DAY_SCHEDULE_API = 'readDaySchedule';
+
+// description : POST /apis/calendar/createSchedule // -추가됨
+export const CREATE_SCHEDULE_API = 'createSchedule';
