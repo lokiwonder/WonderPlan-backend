@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CommuteRepository } from 'src/data-access/commute-repository';
 import { User } from 'src/data-access/schemas';
+import { WorkingStatus } from 'src/_commons/classes';
 import { GO_TO_WORK } from './constant';
 import {
   canLeaveWork,
@@ -36,9 +37,9 @@ export class CommuteService {
       const commuteRecord = generateCommuteRecord(
         user,
         commuteDateTime,
-        GO_TO_WORK,
+        WorkingStatus.ATTENDANCE,
       );
-      await this.commuteRepository.createAttendanceRecord(commuteRecord);
+      await this.commuteRepository.createRecord(commuteRecord);
     }
     return true;
   }

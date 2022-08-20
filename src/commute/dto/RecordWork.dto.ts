@@ -1,4 +1,4 @@
-import { IsDate, IsDateString, IsNotEmpty, IsString } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsString } from 'class-validator';
 import { WorkingStatus } from 'src/_commons/classes';
 
 export default class RecordWorkDTO {

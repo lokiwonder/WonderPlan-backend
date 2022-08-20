@@ -11,7 +11,7 @@ import { UserRepository } from 'src/data-access/user.repository';
 import { JWT_SECRET } from 'src/_commons/constants';
 import { CommuteRepository } from 'src/data-access/commute-repository';
 import { getCommuteDateTime } from 'src/commute/function';
-import { WorkingStatus } from 'src/_commons/classes';
+import { getWorkingStatus } from './function';
 
 @Injectable()
 export class AuthService {
@@ -53,10 +53,7 @@ export class AuthService {
       commuteDate,
     );
     //description: 사용자 출근 기록을 추출하기 위한 비구조화 //
-    const workingStatus =
-      commuteRecords.length > 0
-        ? commuteRecords[0].workingStatus
-        : WorkingStatus.LEAVEWORK;
+    const workingStatus = getWorkingStatus(commuteRecords);
 
     // description : 사용자 정보 + 회사 정보 + 출근 상태 + accessToken을 객체로 생성 //
     const googleLoginRes: GoogleLoginRes = {

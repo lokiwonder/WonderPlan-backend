@@ -7,7 +7,8 @@ import { Commute, Company } from './schemas';
 import { CompanySchema } from './schemas/company.schema';
 import { CommuteRepository } from './commute-repository';
 import { CommuteSchema } from './schemas/commute.schema';
-import { CalendarRepository } from './calendar-repository';
+import { Vacation, VacationSchema } from './schemas/vacation.schema';
+import { VacationRepository } from './vacation-repository';
 
 @Module({
   imports: [
@@ -24,18 +25,23 @@ import { CalendarRepository } from './calendar-repository';
         name: Commute.name,
         schema: CommuteSchema,
       },
+      {
+        name: Vacation.name,
+        schema: VacationSchema,
+      },
     ]),
   ],
   providers: [
     UserRepository,
     CompanyRepository,
     CommuteRepository,
-    CalendarRepository,
+    VacationRepository,
   ],
   exports: [
     UserRepository,
     CompanyRepository,
-    CalendarRepository,
+    CommuteRepository,
+    VacationRepository,
     MongooseModule,
   ],
 })

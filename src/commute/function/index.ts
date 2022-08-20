@@ -25,7 +25,7 @@ export const canLeaveWork = (commute: ICommute) => {
 export const generateCommuteRecord = (
   user: User,
   commuteDateTime: ICommuteDateTime,
-  workingStatus: string,
+  workingStatus: WorkingStatus,
 ) => {
   const { userEmail, companyNumber } = user;
   const { commuteDate, commuteTime } = commuteDateTime;

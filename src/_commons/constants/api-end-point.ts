@@ -52,7 +52,7 @@ export const COMMUTE_API = `${END_POINT}/commute`;
 export const RECORD_WORK_API = 'recordWork';
 
 // description : CALENDAR Module END POINT // -추가됨
-export const CALENDAR_API = '${END_POINT}/calendar';
+export const CALENDAR_API = `${END_POINT}/calendar`;
 
 // description : GET /apis/calendar/readMonthSchedule // -추가됨
 export const READ_MONTH_SCHEDULE_API = 'readMonthSchedule';

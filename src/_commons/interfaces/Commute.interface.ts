@@ -1,3 +1,5 @@
+import { WorkingStatus } from '../classes';
+
 export default interface ICommute {
   userEmail: string;
 
@@ -9,7 +11,7 @@ export default interface ICommute {
 
   endTime: string;
 
-  workingStatus: string;
+  workingStatus: WorkingStatus;
 
   description: string;
 }
